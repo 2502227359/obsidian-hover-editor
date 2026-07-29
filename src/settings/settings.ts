@@ -13,6 +13,7 @@ export interface HoverEditorSettings {
   snapToEdges: boolean;
   initialHeight: string;
   initialWidth: string;
+  contentFontSize: string;
   showViewHeader: boolean;
   imageZoom: boolean;
   hoverEmbeds: boolean;
@@ -31,6 +32,7 @@ export const DEFAULT_SETTINGS: HoverEditorSettings = {
   snapToEdges: false,
   initialHeight: "340px",
   initialWidth: "400px",
+  contentFontSize: "inherit",
   showViewHeader: false,
   imageZoom: true,
   hoverEmbeds: false,
@@ -216,6 +218,22 @@ export class SettingTab extends PluginSettingTab {
           value = parseCssUnitValue(value);
           if (!value) value = DEFAULT_SETTINGS.initialHeight;
           this.plugin.settings.initialHeight = value;
+          this.plugin.saveSettings();
+        });
+      });
+
+    new Setting(containerEl)
+      .setName("悬浮窗正文大小")
+      .setDesc("仅影响阅读视图中的正文；留空则继承 Obsidian 或主题的全局字号。")
+      .addText(textfield => {
+        textfield.setPlaceholder("继承全局字号");
+        textfield.inputEl.type = "text";
+        textfield.setValue(this.plugin.settings.contentFontSize === "inherit" ? "" : this.plugin.settings.contentFontSize);
+        textfield.onChange(value => {
+          value = value.trim();
+          const fontSize = value ? parseCssUnitValue(value) : "inherit";
+          this.plugin.settings.contentFontSize = fontSize || DEFAULT_SETTINGS.contentFontSize;
+          this.plugin.activePopovers.forEach(popover => popover.setContentFontSize());
           this.plugin.saveSettings();
         });
       });

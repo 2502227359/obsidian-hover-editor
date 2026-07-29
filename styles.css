@@ -176,7 +176,7 @@ don't live in a root split, we have to copy the override:
 }
 
 .popover.hover-editor .markdown-preview-view {
-  font-size: inherit;
+  font-size: var(--he-content-font-size, inherit);
 }
 
 .popover.hover-editor.is-active {

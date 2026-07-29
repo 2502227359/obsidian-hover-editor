@@ -222,6 +222,7 @@ export class HoverEditor extends nosuper(HoverPopover) {
     // custom logic begin
     popovers.set(this.hoverEl, this);
     this.hoverEl.addClass("hover-editor");
+    this.setContentFontSize();
     this.containerEl = this.hoverEl.createDiv("popover-content");
     this.buildWindowControls();
     this.setInitialDimensions();
@@ -233,6 +234,10 @@ export class HoverEditor extends nosuper(HoverPopover) {
     setIcon(pinEl, "lucide-pin");
     this.createResizeHandles();
     if (this.plugin.settings.imageZoom) this.registerZoomImageHandlers();
+  }
+
+  setContentFontSize() {
+    this.hoverEl.style.setProperty("--he-content-font-size", this.plugin.settings.contentFontSize);
   }
 
   adopt(targetEl: HTMLElement) {
