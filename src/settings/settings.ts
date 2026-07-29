@@ -40,14 +40,14 @@ export const DEFAULT_SETTINGS: HoverEditorSettings = {
 };
 
 export const modeOptions = {
-  preview: "Reading view",
-  source: "Editing view",
-  match: "Match current view",
+  preview: "阅读视图",
+  source: "编辑视图",
+  match: "跟随当前视图",
 };
 
 export const pinOptions = {
-  onMove: "On drag or resize",
-  always: "Always",
+  onMove: "拖动或调整大小时",
+  always: "始终置顶",
 };
 
 export class SettingTab extends PluginSettingTab {
@@ -65,7 +65,7 @@ export class SettingTab extends PluginSettingTab {
 
     containerEl.empty();
 
-    new Setting(containerEl).setName("Default Mode").addDropdown(cb => {
+    new Setting(containerEl).setName("默认视图模式").addDropdown(cb => {
       cb.addOptions(modeOptions);
       cb.setValue(this.plugin.settings.defaultMode);
       cb.onChange(async value => {
@@ -74,7 +74,7 @@ export class SettingTab extends PluginSettingTab {
       });
     });
 
-    new Setting(containerEl).setName("Auto Pin").addDropdown(cb => {
+    new Setting(containerEl).setName("自动置顶").addDropdown(cb => {
       cb.addOptions(pinOptions);
       cb.setValue(this.plugin.settings.autoPin);
       cb.onChange(value => {
@@ -84,9 +84,9 @@ export class SettingTab extends PluginSettingTab {
     });
 
     new Setting(containerEl)
-      .setName("Trigger hover preview on embeds")
+      .setName("在嵌入内容上触发悬浮预览")
       .setDesc(
-        "Allow hover preview to trigger when hovering over any type of rendered embed such as images or block references",
+        "鼠标悬停在图片、块引用等任意已渲染的嵌入内容上时，允许触发悬浮预览。",
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.hoverEmbeds).onChange(value => {
@@ -96,9 +96,9 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Trigger hover preview on sub-heading links")
+      .setName("在子标题链接上触发悬浮预览")
       .setDesc(
-        "Use hover editor for links to subheadings, instead of the built-in preview/editor",
+        "打开指向子标题的链接时，使用悬浮编辑器而不是内置预览/编辑器。",
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.headings === "always").onChange(value => {
@@ -108,9 +108,9 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Trigger hover preview on block links")
+      .setName("在块链接上触发悬浮预览")
       .setDesc(
-        "Use hover editor for links to blocks, instead of the built-in preview/editor",
+        "打开指向块的链接时，使用悬浮编辑器而不是内置预览/编辑器。",
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.blocks === "always").onChange(value => {
@@ -120,9 +120,9 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Trigger hover preview on footnotes")
+      .setName("在脚注链接上触发悬浮预览")
       .setDesc(
-        "Use hover editor for footnotes, instead of the built-in preview/editor",
+        "打开脚注链接时，使用悬浮编辑器而不是内置预览/编辑器。",
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.footnotes === "always").onChange(value => {
@@ -132,8 +132,8 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Auto Focus")
-      .setDesc("Set the hover editor as the active pane when opened")
+      .setName("自动聚焦")
+      .setDesc("打开时将悬浮编辑器设为当前活动窗格。")
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.autoFocus).onChange(value => {
           this.plugin.settings.autoFocus = value;
@@ -142,8 +142,8 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Minimize downwards")
-      .setDesc("When double clicking to minimize, the window will roll down instead of rolling up")
+      .setName("向下最小化")
+      .setDesc("双击最小化时，窗口向下收起，而不是向上收起。")
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.rollDown).onChange(value => {
           this.plugin.settings.rollDown = value;
@@ -152,11 +152,10 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Snap to edges")
+      .setName("吸附到屏幕边缘")
       .setDesc(
-        `Quickly arrange popovers by dragging them to the edges of the screen. The left and right edges 
-        will maximize the popover vertically. The top edge will maximize the popover to fill the entire 
-        screen. Dragging the popovers away from the edges will restore the popver to its original size.`,
+        `将悬浮窗拖到屏幕边缘可快速排列。拖到左右边缘会纵向最大化，拖到顶部会填满整个屏幕；
+        再把悬浮窗拖离边缘即可恢复原始大小。`,
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.snapToEdges).onChange(value => {
@@ -166,10 +165,10 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Show view header by default")
+      .setName("默认显示视图标题栏")
       .setDesc(
-        `Show the view header by default when triggering a hover editor.
-         When disabled, view headers will only show if you click the view header icon to the left of the minimize button.`,
+        `打开悬浮编辑器时默认显示视图标题栏。
+         关闭后，只有点击最小化按钮左侧的标题栏图标才会显示标题栏。`,
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.showViewHeader).onChange(value => {
@@ -179,10 +178,10 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Click to zoom image")
+      .setName("点击放大图片")
       .setDesc(
-        `Click and hold an image within a hover editor to temporarily maximize the popover and image to fill the entire viewport. 
-        On mouse up, the hover editor will restore to its original size.`,
+        `在悬浮编辑器中按住图片，可临时将悬浮窗和图片最大化至整个视口。
+        松开鼠标后，悬浮编辑器会恢复原始大小。`,
       )
       .addToggle(toggle =>
         toggle.setValue(this.plugin.settings.imageZoom).onChange(value => {
@@ -192,8 +191,8 @@ export class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Initial popover width")
-      .setDesc("Enter any valid CSS unit")
+      .setName("悬浮窗初始宽度")
+      .setDesc("可输入任意有效的 CSS 单位。")
       .addText(textfield => {
         textfield.setPlaceholder(this.plugin.settings.initialWidth);
         textfield.inputEl.type = "text";
@@ -207,8 +206,8 @@ export class SettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName("Initial popover height")
-      .setDesc("Enter any valid CSS unit")
+      .setName("悬浮窗初始高度")
+      .setDesc("可输入任意有效的 CSS 单位。")
       .addText(textfield => {
         textfield.setPlaceholder(String(this.plugin.settings.initialHeight));
         textfield.inputEl.type = "text";
@@ -222,8 +221,8 @@ export class SettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName("Hover Trigger Delay (ms)")
-      .setDesc("How long to wait before showing a Hover Editor when hovering over a link")
+      .setName("悬浮触发延迟（毫秒）")
+      .setDesc("鼠标悬停在链接上后，等待多久才显示悬浮编辑器。")
       .addText(textfield => {
         textfield.setPlaceholder(String(this.plugin.settings.triggerDelay));
         textfield.inputEl.type = "number";
@@ -235,8 +234,8 @@ export class SettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName("Hover Close Delay (ms)")
-      .setDesc("How long to wait before closing a Hover Editor once the mouse leaves")
+      .setName("悬浮关闭延迟（毫秒）")
+      .setDesc("鼠标离开后，等待多久才关闭悬浮编辑器。")
       .addText(textfield => {
         textfield.setPlaceholder(String(this.plugin.settings.closeDelay));
         textfield.inputEl.type = "number";
