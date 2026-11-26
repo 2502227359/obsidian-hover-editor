@@ -68,6 +68,9 @@ declare module "obsidian" {
     typeByExtension: Record<string, string>; // file extensions to view types
     viewByType: Record<string, (leaf: WorkspaceLeaf) => View>; // file extensions to view types
   }
+  interface MetadataCache {
+    getLinkpathDest?(linkpath: string, sourcePath: string): TFile[];
+  }
   interface CalendarPlugin {
     view: View;
   }

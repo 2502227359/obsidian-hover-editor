@@ -35,6 +35,7 @@ import { snapActivePopover, snapDirections, restoreActivePopover, minimizeActive
 import { Scope } from "@interactjs/types";
 import interactStatic from "@nothingislost/interactjs";
 import { isA } from "./utils/misc";
+import { YoloLinkHover } from "./yoloLinkHover";
 
 class Interactor extends PerWindowComponent {
   interact = this.createInteractor();
@@ -91,6 +92,7 @@ export default class HoverEditorPlugin extends Plugin {
     this.app.workspace.onLayoutReady(() => {
       this.patchSlidingPanes();
       this.patchLinkHover();
+      this.use(YoloLinkHover).watch();
       setTimeout(() => {
         // workaround to ensure our plugin shows up properly within Style Settings
         this.app.workspace.trigger("css-change");

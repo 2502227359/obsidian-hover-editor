@@ -1,6 +1,6 @@
 {
   "name": "hover-editor-zh",
-  "version": "0.11.30-zh.1",
+  "version": "0.11.30-zh.2",
   "description": "将页面预览悬浮窗转换为可编辑的浮动标签页（汉化版）",
   "main": "main.js",
   "packageManager": "pnpm@7.33.6",

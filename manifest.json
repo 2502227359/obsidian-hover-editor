@@ -1,7 +1,7 @@
 {
   "id": "hover-editor-zh",
   "name": "悬浮编辑器（汉化版）",
-  "version": "0.11.30-zh.1",
+  "version": "0.11.30-zh.2",
   "minAppVersion": "1.10.6",
   "description": "将页面预览悬浮窗转换为可编辑的浮动标签页",
   "author": "本地汉化版",
